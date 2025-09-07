@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Smash & Sizzle Burger Co. | Order on DoorDash / Uber Eats / ToastTab / ChowNow</title>
+  <meta name="description" content="Hand‑smashed burgers, crispy fries, and real shakes. Start your order on DoorDash, Uber Eats, ToastTab, or ChowNow." />
+  <meta name="robots" content="index,follow" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23000'/%3E%3Ctext x='32' y='39' font-size='28' text-anchor='middle' fill='%23fff' font-family='Arial'%3E🍔%3C/text%3E%3C/svg%3E"/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{ --bg:#0b0b0c; --fg:#f5f6f8; --muted:#c7c9d1; --brand:#ffcb2b; --card:#131316 }
+    *{box-sizing:border-box}
+    html,body{margin:0; padding:0; background:var(--bg); color:var(--fg); font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+    a{color:var(--brand)}
+    .container{width:min(1120px,92%); margin-inline:auto}
+    header{position:sticky; top:0; z-index:50; background:rgba(11,11,12,.85); backdrop-filter:blur(10px); border-bottom:1px solid #1c1c20}
+    .nav{display:flex; gap:20px; align-items:center; justify-content:space-between; padding:14px 0}
+    .logo{display:flex; gap:10px; align-items:center; font-weight:800}
+    .logo b{background:var(--brand); color:#181818; padding:6px 10px; border-radius:10px}
+    .nav a{color:var(--fg); text-decoration:none; font-weight:600}
+    .navlinks{display:flex; gap:18px}
+    .btn{display:inline-flex; align-items:center; gap:8px; background:var(--brand); color:#181818; border:0; padding:10px 16px; border-radius:12px; font-weight:800; cursor:pointer}
+    .btn.secondary{background:#2a2a2f; color:var(--fg); border:1px solid #3a3a41}
+    .btn.ghost{background:transparent; border:1px solid #3a3a41; color:var(--fg)}
+
+    .hero{display:grid; grid-template-columns:1.1fr .9fr; gap:28px; align-items:center; padding:48px 0}
+    .hero h1{font-family:Montserrat,Inter,sans-serif; line-height:1.05; font-size:clamp(34px, 5vw, 56px); margin:0 0 10px}
+    .hero p{color:var(--muted); font-size:18px}
+    .hero-card{background:linear-gradient(180deg,#16161a 0%,#0f0f12 100%); border:1px solid #26262c; border-radius:20px; padding:20px}
+    .tags{display:flex; flex-wrap:wrap; gap:10px; margin:14px 0 24px}
+    .tag{border:1px solid #2e2e34; border-radius:999px; padding:6px 10px; color:#e8e9ee; font-size:13px}
+    .imgwrap{position:relative; border-radius:22px; overflow:hidden; border:1px solid #2b2b31}
+    .imgwrap img{display:block; width:100%; height:auto}
+    .ribbon{position:absolute; top:14px; left:14px; background:#18181b; border:1px solid #2a2a2f; color:#fff; padding:6px 10px; border-radius:10px; font-weight:700}
+
+    section{padding:48px 0; border-top:1px solid #17171a}
+    h2{font-family:Montserrat,Inter,sans-serif; font-size:clamp(24px,3.2vw,36px); margin:0 0 16px}
+    .grid{display:grid; gap:18px}
+    .grid.cols-3{grid-template-columns:repeat(3,1fr)}
+    .grid.cols-2{grid-template-columns:repeat(2,1fr)}
+    .card{background:var(--card); border:1px solid #222228; border-radius:16px; padding:18px}
+    .menu-item{display:flex; gap:14px; cursor:pointer}
+    .menu-item img{width:92px; height:92px; border-radius:12px; object-fit:cover; border:1px solid #2b2b31}
+    .menu-item h3{margin:0; font-size:18px}
+    .menu-item p{margin:6px 0 0; color:var(--muted)}
+    .price{font-weight:900; color:var(--brand)}
+    .cta{display:flex; flex-wrap:wrap; gap:12px; margin-top:16px}
+    .hours-list{display:grid; grid-template-columns:1fr auto; gap:10px; color:var(--muted)}
+    .gallery{display:grid; grid-template-columns:repeat(6,1fr); gap:8px}
+    .gallery img{width:100%; height:140px; object-fit:cover; border-radius:10px; border:1px solid #2b2b31}
+    .faq dt{font-weight:800; margin-top:12px}
+    .faq dd{margin:6px 0 16px; color:var(--muted)}
+    footer{padding:36px 0; color:#a6a8b0}
+    .small{font-size:13px; color:#9a9daa}
+
+    /* Partner modal */
+    .backdrop{position:fixed; inset:0; background:rgba(0,0,0,.55); display:none; z-index:60}
+    .backdrop.show{display:block}
+    .modal{position:fixed; inset:0; display:none; place-items:center; z-index:61}
+    .modal.show{display:grid}
+    .sheet{width:min(560px,92%); background:#111116; border:1px solid #2a2a2f; border-radius:18px; padding:18px}
+    .partner{display:flex; align-items:center; gap:12px; padding:12px; border:1px solid #2a2a2f; border-radius:12px; text-decoration:none; color:#fff}
+    .partner:hover{border-color:#3a3a41}
+    .partner img{width:28px; height:28px; border-radius:6px}
+    .closebar{display:flex; justify-content:space-between; align-items:center; margin-bottom:10px}
+    .x{background:#23232a; color:#fff; border:0; border-radius:10px; padding:8px 10px; cursor:pointer}
+
+    @media (max-width:900px){.hero{grid-template-columns:1fr}.navlinks{display:none}}
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="container nav" aria-label="Primary">
+      <div class="logo" aria-label="Smash and Sizzle logo"><b>🍔</b> <span>Smash & Sizzle <span style="color:#8a8d99">Burger Co.</span></span></div>
+      <div class="navlinks">
+        <a href="#menu">Menu</a>
+        <a href="#order">Order</a>
+        <a href="#location">Location</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <button class="btn" id="orderBtn">Order Online</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="container hero" id="home">
+      <div class="hero-card">
+        <h1>Hand‑Smashed Burgers. Fresh‑Cut Fries. Real Shakes.</h1>
+        <p>Local burger spot serving Jacksonville since 2025. Smash‑seared patties, toasted brioche, and house sauces made fresh daily.</p>
+        <div class="tags" aria-label="Highlights">
+          <span class="tag">✔️ Grass‑fed beef</span>
+          <span class="tag">✔️ Gluten‑free buns</span>
+          <span class="tag">✔️ Vegan options</span>
+          <span class="tag">✔️ Late night</span>
+        </div>
+        <div class="cta">
+          <button class="btn" id="heroOrder">Order Now</button>
+          <a href="#menu" class="btn secondary">View Menu</a>
+          <a href="#catering" class="btn ghost">Catering</a>
+        </div>
+        <p class="small" style="margin-top:10px">Open today 11:00 AM – 11:00 PM • 123 Riverfront Ave, Jacksonville, FL</p>
+      </div>
+      <div class="imgwrap">
+        <span class="ribbon">Made to Order</span>
+        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=1600&auto=format&fit=crop" alt="Close-up of smash burger with melted cheese and brioche bun" loading="eager" width="1600" height="1067"/>
+      </div>
+    </section>
+
+    <!-- MENU (each item opens partner modal; optional deep-links via data attributes) -->
+    <section id="menu">
+      <div class="container">
+        <h2>Menu Favorites</h2>
+        <div class="grid cols-3">
+          <div class="card menu-item" data-sku="classic-smash" data-name="Classic Smash" data-dd="https://www.doordash.com/store/your-store-id/item/classic-smash" data-ue="https://www.ubereats.com/store/your-store-id?mod=classic-smash" data-toast="https://order.toasttab.com/online/your-store/classic-smash" data-chow="https://order.chownow.com/your-store/items/classic-smash">
+            <img src="https://images.unsplash.com/photo-1550317138-10000687a72b?q=80&w=500&auto=format&fit=crop" alt="Classic smash burger" loading="lazy" width="500" height="500"/>
+            <div>
+              <h3>Classic Smash</h3>
+              <p>2x smashed beef, American cheese, Sizzle sauce, pickles, onions, brioche. <span class="price">$9.99</span></p>
+              <div class="cta"><button class="btn secondary open-partners">Start Order</button></div>
+            </div>
+          </div>
+          <div class="card menu-item" data-sku="smokehouse-bbq" data-name="Smokehouse BBQ" data-dd="https://www.doordash.com/store/your-store-id/item/smokehouse-bbq" data-ue="https://www.ubereats.com/store/your-store-id?mod=smokehouse-bbq" data-toast="https://order.toasttab.com/online/your-store/smokehouse-bbq" data-chow="https://order.chownow.com/your-store/items/smokehouse-bbq">
+            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=500&auto=format&fit=crop" alt="BBQ bacon burger" loading="lazy" width="500" height="500"/>
+            <div>
+              <h3>Smokehouse BBQ</h3>
+              <p>Bacon, cheddar, crispy onions, BBQ glaze. <span class="price">$11.49</span></p>
+              <div class="cta"><button class="btn secondary open-partners">Start Order</button></div>
+            </div>
+          </div>
+          <div class="card menu-item" data-sku="green-grill" data-name="Green Grill (V)" data-dd="https://www.doordash.com/store/your-store-id/item/green-grill" data-ue="https://www.ubereats.com/store/your-store-id?mod=green-grill" data-toast="https://order.toasttab.com/online/your-store/green-grill" data-chow="https://order.chownow.com/your-store/items/green-grill">
+            <img src="https://images.unsplash.com/photo-1544025162-8fbf4a7f1a5f?q=80&w=500&auto=format&fit=crop" alt="Veggie burger" loading="lazy" width="500" height="500"/>
+            <div>
+              <h3>Green Grill (V)</h3>
+              <p>Grilled plant patty, vegan aioli, lettuce, tomato. <span class="price">$10.49</span></p>
+              <div class="cta"><button class="btn secondary open-partners">Start Order</button></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid cols-3" style="margin-top:14px">
+          <div class="card menu-item" data-sku="loaded-fries" data-name="Loaded Fries" data-dd="https://www.doordash.com/store/your-store-id/item/loaded-fries" data-ue="https://www.ubereats.com/store/your-store-id?mod=loaded-fries" data-toast="https://order.toasttab.com/online/your-store/loaded-fries" data-chow="https://order.chownow.com/your-store/items/loaded-fries">
+            <img src="https://images.unsplash.com/photo-1558544383-83d3b1a6f4b8?q=80&w=500&auto=format&fit=crop" alt="Loaded fries" loading="lazy" width="500" height="500"/>
+            <div>
+              <h3>Loaded Fries</h3>
+              <p>Cheese sauce, scallions, jalapeño, ranch drizzle. <span class="price">$6.49</span></p>
+              <div class="cta"><button class="btn secondary open-partners">Start Order</button></div>
+            </div>
+          </div>
+          <div class="card menu-item" data-sku="real-shakes" data-name="Real Shakes" data-dd="https://www.doordash.com/store/your-store-id/item/real-shakes" data-ue="https://www.ubereats.com/store/your-store-id?mod=real-shakes" data-toast="https://order.toasttab.com/online/your-store/real-shakes" data-chow="https://order.chownow.com/your-store/items/real-shakes">
+            <img src="https://images.unsplash.com/photo-1542444459-db63c8f00f53?q=80&w=500&auto=format&fit=crop" alt="Chocolate milkshake" loading="lazy" width="500" height="500"/>
+            <div>
+              <h3>Real Shakes</h3>
+              <p>Vanilla • Chocolate • Strawberry • Oreo. <span class="price">$5.99</span></p>
+              <div class="cta"><button class="btn secondary open-partners">Start Order</button></div>
+            </div>
+          </div>
+          <div class="card menu-item" data-sku="hot-honey-chick" data-name="Hot Honey Chick" data-dd="https://www.doordash.com/store/your-store-id/item/hot-honey-chick" data-ue="https://www.ubereats.com/store/your-store-id?mod=hot-honey-chick" data-toast="https://order.toasttab.com/online/your-store/hot-honey-chick" data-chow="https://order.chownow.com/your-store/items/hot-honey-chick">
+            <img src="https://images.unsplash.com/photo-1606756790138-261d2b21cd4f?q=80&w=500&auto=format&fit=crop" alt="Chicken sandwich" loading="lazy" width="500" height="500"/>
+            <div>
+              <h3>Hot Honey Chick</h3>
+              <p>Crispy chicken, hot honey, slaw, pickles. <span class="price">$10.99</span></p>
+              <div class="cta"><button class="btn secondary open-partners">Start Order</button></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cta">
+          <button class="btn" id="openPartners">Start Order</button>
+          <a class="btn secondary" href="#download-menu">Download Full Menu (PDF)</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ORDER/CATERING CTA -->
+    <section id="order">
+      <div class="container">
+        <div class="card">
+          <h2>Order, Pickup, or Catering</h2>
+          <p class="small">Choose a delivery partner to start your order now.</p>
+          <div class="cta">
+            <button class="btn" id="orderPartners">Start Order</button>
+            <a href="#catering" class="btn secondary" aria-label="Catering form">Catering Request</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOCATION / HOURS -->
+    <section id="location">
+      <div class="container grid cols-2">
+        <div>
+          <h2>Visit Us</h2>
+          <p>123 Riverfront Ave, Jacksonville, FL 32202</p>
+          <div class="hours-list">
+            <span>Mon–Thu</span><span>11:00 AM – 10:00 PM</span>
+            <span>Fri–Sat</span><span>11:00 AM – 12:00 AM</span>
+            <span>Sun</span><span>12:00 PM – 9:00 PM</span>
+          </div>
+          <div class="cta" style="margin-top:14px">
+            <a class="btn" href="https://maps.google.com/?q=123+Riverfront+Ave+Jacksonville+FL" target="_blank" rel="noopener">Open in Maps</a>
+            <a class="btn secondary" href="tel:+19045551234">Call (904) 555‑1234</a>
+          </div>
+        </div>
+        <div class="imgwrap" aria-label="Map">
+          <iframe title="Map to Smash & Sizzle" src="https://www.google.com/maps?q=Jacksonville,FL&output=embed" loading="lazy" style="width:100%; height:320px; border:0"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- CATERING FORM (Netlify Forms ready) -->
+    <section id="catering">
+      <div class="container">
+        <h2>Book Catering</h2>
+        <p class="small">Tell us about your event. We'll reply within 1 business day.</p>
+        <form name="catering" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="card" aria-labelledby="catering">
+          <input type="hidden" name="form-name" value="catering" />
+          <p style="display:none"><label>Don’t fill this out: <input name="bot-field" /></label></p>
+          <div class="grid cols-2">
+            <label>Full Name<input required name="name" type="text" placeholder="Jane Doe" style="width:100%; margin-top:6px; padding:10px; border-radius:10px; border:1px solid #2e2e34; background:#0e0e11; color:#fff"></label>
+            <label>Email<input required name="email" type="email" placeholder="you@example.com" style="width:100%; margin-top:6px; padding:10px; border-radius:10px; border:1px solid #2e2e34; background:#0e0e11; color:#fff"></label>
+          </div>
+          <div class="grid cols-2" style="margin-top:10px">
+            <label>Event Date<input required name="date" type="date" style="width:100%; margin-top:6px; padding:10px; border-radius:10px; border:1px solid #2e2e34; background:#0e0e11; color:#fff"></label>
+            <label>Guests<input required name="guests" type="number" min="10" placeholder="50" style="width:100%; margin-top:6px; padding:10px; border-radius:10px; border:1px solid #2e2e34; background:#0e0e11; color:#fff"></label>
+          </div>
+          <label style="display:block; margin-top:10px">Details<textarea name="details" rows="4" placeholder="Tell us about your event…" style="width:100%; margin-top:6px; padding:10px; border-radius:10px; border:1px solid #2e2e34; background:#0e0e11; color:#fff"></textarea></label>
+          <div class="cta" style="margin-top:14px"><button class="btn" type="submit">Request Catering</button></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="grid cols-3">
+        <div>
+          <div class="logo"><b>🍔</b> Smash & Sizzle</div>
+          <p class="small">© <span id="year"></span> Smash & Sizzle Burger Co. All rights reserved.</p>
+        </div>
+        <div>
+          <p><strong>Contact</strong><br>
+          <a href="tel:+19045551234">(904) 555‑1234</a><br>
+          <a href="mailto:hello@smashandsizzle.com">hello@smashandsizzle.com</a></p>
+        </div>
+        <div>
+          <p><strong>Follow</strong><br>
+          <a href="#">Instagram</a> · <a href="#">TikTok</a> · <a href="#">Facebook</a></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Partner chooser modal -->
+  <div class="backdrop" id="bk"></div>
+  <div class="modal" id="partnerModal" role="dialog" aria-modal="true" aria-labelledby="partnerTitle">
+    <div class="sheet">
+      <div class="closebar">
+        <h3 id="partnerTitle" style="margin:0">Choose a partner</h3>
+        <button class="x" id="closeModal">Close</button>
+      </div>
+      <p class="small" id="partnerHint" style="margin-top:0; color:#c7c9d1">We’ll open your order on your preferred partner in a new tab.</p>
+      <div class="grid cols-2" id="partnerList">
+        <!-- buttons injected here -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ——— CONFIG: paste your real links once you have them ———
+    const PARTNERS = {
+      doordash: {
+        name: 'DoorDash',
+        url: 'https://www.doordash.com/store/your-store-id', // store page
+        icon: 'https://static-00.iconduck.com/assets.00/doordash-icon-512x512-rz5z6m4u.png'
+      },
+      ubereats: {
+        name: 'Uber Eats',
+        url: 'https://www.ubereats.com/store/your-store-id',
+        icon: 'https://static-00.iconduck.com/assets.00/uber-eats-icon-512x512-h9k2wxtb.png'
+      },
+      toasttab: {
+        name: 'ToastTab',
+        url: 'https://order.toasttab.com/online/your-store',
+        icon: 'https://static-00.iconduck.com/assets.00/toast-tab-icon-512x512-ew5h1k2m.png'
+      },
+      chownow: {
+        name: 'ChowNow',
+        url: 'https://order.chownow.com/your-store',
+        icon: 'https://static-00.iconduck.com/assets.00/chownow-icon-512x512-1l5l9j2g.png'
+      }
+    };
+
+    // optional per-item deep links keyed by sku; fallback to store URL
+    const ITEM_LINKS = {
+      'classic-smash': {
+        doordash: 'https://www.doordash.com/store/your-store-id/item/classic-smash',
+        ubereats: 'https://www.ubereats.com/store/your-store-id?mod=classic-smash',
+        toasttab: 'https://order.toasttab.com/online/your-store/classic-smash',
+        chownow: 'https://order.chownow.com/your-store/items/classic-smash'
+      }
+      // add more items as you get deep links
+    };
+
+    // ——— Helpers ———
+    const $ = s => document.querySelector(s);
+    const $$ = s => [...document.querySelectorAll(s)];
+    const year = new Date().getFullYear();
+    document.getElementById('year').textContent = year;
+
+    function openPartners(sku){
+      // build partner buttons
+      const list = $('#partnerList');
+      list.innerHTML = '';
+      const links = sku && ITEM_LINKS[sku] ? ITEM_LINKS[sku] : {};
+      Object.entries(PARTNERS).forEach(([key, p]) => {
+        const href = links[key] || p.url;
+        if(!href) return;
+        const a = document.createElement('a');
+        a.className = 'partner'; a.target = '_blank'; a.rel = 'noopener'; a.href = href;
+        a.innerHTML = `<img src="${p.icon}" alt="${p.name} logo"/> <div><div style="font-weight:800">${p.name}</div><div class="small" style="color:#c7c9d1">Opens in new tab</div></div>`;
+        list.appendChild(a);
+      });
+      $('#partnerHint').textContent = sku ? 'We’ll open the item on your selected partner when possible.' : 'We’ll open your order on your preferred partner.';
+      $('#bk').classList.add('show');
+      $('#partnerModal').classList.add('show');
+    }
+    function closePartners(){ $('#bk').classList.remove('show'); $('#partnerModal').classList.remove('show'); }
+
+    // Bindings for global order buttons
+    $('#orderBtn').addEventListener('click', () => openPartners());
+    $('#heroOrder').addEventListener('click', () => openPartners());
+    $('#openPartners').addEventListener('click', () => openPartners());
+    $('#orderPartners').addEventListener('click', () => openPartners());
+    $('#closeModal').addEventListener('click', closePartners);
+    $('#bk').addEventListener('click', closePartners);
+
+    // Menu cards → open partner chooser, prefer deep link using their sku
+    $$('.menu-item .open-partners').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const card = e.currentTarget.closest('.menu-item');
+        openPartners(card.dataset.sku);
+      });
+    });
+    $$('.menu-item').forEach(card => {
+      card.addEventListener('click', (e) => {
+        if(e.target.classList.contains('open-partners')) return;
+        openPartners(card.dataset.sku);
+      });
+    });
+  </script>
+</body>
+</html>
